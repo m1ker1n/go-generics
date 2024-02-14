@@ -22,3 +22,6 @@ go.work
 
 # GoLand
 .idea
+
+# My main folder for calling library
+main
