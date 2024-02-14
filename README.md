@@ -16,3 +16,4 @@ Guides:
 1. [Publishing a module](https://go.dev/doc/modules/publishing)
 2. [Module releases and versioning workflow](https://go.dev/doc/modules/release-workflow)
 3. [How to add package to pkg.go.dev](https://pkg.go.dev/about)
+4. [How to Go Doc Comments](https://go.dev/doc/comment)
