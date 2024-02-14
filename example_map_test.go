@@ -9,9 +9,9 @@ func ExampleMap_intToInt() {
 	doubleInt := func(i int) (int, error) {
 		return 2 * i, nil
 	}
-	x := []int{1, 2, 3}
+	x := []int{1, 2, 4}
 	fmt.Printf("%#v", Map(x, doubleInt))
-	// Output: []int{2, 4, 6}
+	// Output: []int{2, 4, 8}
 }
 
 func ExampleMap_intToString() {
