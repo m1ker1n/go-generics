@@ -8,15 +8,15 @@ import "errors"
 // If not, then return *new(T) and corresponding error.
 type Transformation[From, To any] func(From) (To, error)
 
-var (
-	// ErrTransformationIsNotProvided is an error telling that callback for TryMap equals nil.
-	ErrTransformationIsNotProvided = errors.New("transformation is not provided")
-)
+// ErrTransformationIsNotProvided is an error telling that callback for Map or TryMap equals nil.
+var ErrTransformationIsNotProvided = errors.New("transformation is not provided")
 
 // Map creates new slice of type []To using provided Transformation.
 //
 // Map iterates through x and calls cb(el) adding its value into resulting slice.
 // If cb(el) returns error then this transformation will be skipped.
+//
+// # Edge cases:
 //
 // If x == nil returns nil.
 //
@@ -47,6 +47,8 @@ func Map[S ~[]From, From, To any](x S, cb Transformation[From, To]) []To {
 //
 // If cb(el) returns error, TryMap stops
 // and returns slice (with elements that have already been processed without error) and error as it is from cb(el).
+//
+// # Edge cases:
 //
 // If x == nil returns nil, nil.
 //
