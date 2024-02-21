@@ -2,7 +2,7 @@ package generics
 
 import "errors"
 
-// Predicate is a type used by Filter function.
+// Predicate is a type used by Filter, FindFirst functions.
 type Predicate[T any] func(x T) bool
 
 // ErrPredicateIsNotProvided is an error telling that predicate for Filter equals nil.
@@ -37,4 +37,34 @@ func Filter[S ~[]E, E any](x S, p Predicate[E]) S {
 		}
 	}
 	return result
+}
+
+// FindFirst return first element which is acceptable by predicate.
+//
+// FindFirst iterates through x and calls p(el).
+//
+// If p(el) == true then returns el, true.
+//
+// If p(el) == false then returns zero value of type E, false.
+//
+// # Edge cases:
+//
+// If x == nil returns zero value, false.
+//
+// If p == nil FindFirst panics with ErrPredicateIsNotProvided.
+func FindFirst[S ~[]E, E any](x S, p Predicate[E]) (E, bool) {
+	if x == nil {
+		return *new(E), false
+	}
+
+	if p == nil {
+		panic(ErrPredicateIsNotProvided)
+	}
+
+	for _, el := range x {
+		if p(el) {
+			return el, true
+		}
+	}
+	return *new(E), false
 }
